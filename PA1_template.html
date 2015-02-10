@@ -204,24 +204,7 @@ hr {
 <h2>Loading and preprocessing the data</h2>
 
 <pre><code class="r">library(dplyr)
-</code></pre>
-
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.1.2
-</code></pre>
-
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;
-## 
-## The following object is masked from &#39;package:stats&#39;:
-## 
-##     filter
-## 
-## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union
-</code></pre>
-
-<pre><code class="r">stepsDF &lt;- read.csv(&quot;activity.csv&quot;)
+stepsDF &lt;- read.csv(&quot;activity.csv&quot;)
 </code></pre>
 
 <h2>What is mean total number of steps taken per day?</h2>
@@ -314,6 +297,14 @@ arrange(intervalMean, desc(avgSteps))
 
 <p><strong>2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.</strong>  </p>
 
+<p>ALGORITHM:<br/>
+1. Read in the data set into a new data frame<br/>
+2. Loop through the dataset using a traditional loop structure<br/>
+3. If an NA is found, replace it with the average from intervalMean<br/>
+Justification:<br/>
+ the activity in each daily 5 minute interval is likely to be the same<br/>
+ so replace missing activity (steps) with the mean from that 5 minute interval  </p>
+
 <p><strong>3. Create a new dataset that is equal to the original dataset but with the missing data filled in.</strong>  </p>
 
 <p><strong>Implementation of the answer to questions 2 and 3 in code:</strong>    </p>
@@ -377,15 +368,15 @@ median(dateSumClean$TotalSteps)
 
 <p><strong>Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?</strong>   </p>
 
-<p><strong>Commentary</strong>: The values do differ slightly from the estimates in the first part of the assignment, however, by imputing the missing data
+<p>The values do differ slightly from the estimates in the first part of the assignment, however, by imputing the missing data
 as I did, using the mean of each 5 minute interval, had the effect of bringing the mean and median closer together. This is to be expected since
 more values at the average(mean) were added to the dataset.    </p>
 
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
 
-<p>**For this part the weekdays() function may be of some help here. Use the dataset with the filled-in missing values for this part. </p>
-
-<p>** 1. Create a new factor variable in the dataset with two levels - &ldquo;weekday&rdquo; and &ldquo;weekend&rdquo; indicating whether a given date is a weekday or weekend day.**  </p>
+<p><strong>Use the filled in dataset with the filled-in missing values for this part.</strong><br/>
+<strong>1. Create a new factor variable in the dataset with two levels - &ldquo;weekday&rdquo; and &ldquo;weekend&rdquo; indicating</strong>
+<strong>whether a given date is a weekday or a weekend day</strong></p>
 
 <pre><code class="r">##Are there differences in activity patterns between weekdays and weekends? 
 
@@ -403,7 +394,9 @@ calcWeekend &lt;- function(date) {
 stepsDFclean$isWeekend &lt;- as.factor(sapply(stepsDFclean$date, calcWeekend))
 </code></pre>
 
-<p>** 2. Make a panel plot containing a time series plot (i.e. type = &ldquo;l&rdquo;) of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data. **   </p>
+<p><strong>2. Make a panel plot containing a time series plot (i.e. type = &ldquo;l&rdquo;) of the 5-minute interval (x-axis) and the average number of steps taken,</strong>
+<strong>averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this</strong>
+<strong>plot should look like using simulated data</strong></p>
 
 <pre><code class="r">#separate the weekend and weekdays into different datasets
 weekendSteps &lt;- subset(stepsDFclean, isWeekend == &quot;weekend&quot;)

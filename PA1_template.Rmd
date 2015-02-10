@@ -84,6 +84,14 @@ sum(is.na(stepsDF$steps))
 
 **2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.**  
 
+ALGORITHM:  
+1. Read in the data set into a new data frame  
+2. Loop through the dataset using a traditional loop structure  
+3. If an NA is found, replace it with the average from intervalMean  
+Justification:  
+ the activity in each daily 5 minute interval is likely to be the same  
+ so replace missing activity (steps) with the mean from that 5 minute interval  
+
 
 **3. Create a new dataset that is equal to the original dataset but with the missing data filled in.**  
 
@@ -148,18 +156,17 @@ median(dateSumClean$TotalSteps)
 
 **Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?**   
 
-**Commentary**: The values do differ slightly from the estimates in the first part of the assignment, however, by imputing the missing data
+The values do differ slightly from the estimates in the first part of the assignment, however, by imputing the missing data
 as I did, using the mean of each 5 minute interval, had the effect of bringing the mean and median closer together. This is to be expected since
 more values at the average(mean) were added to the dataset.    
 
 
-
 ## Are there differences in activity patterns between weekdays and weekends?
 
+**Use the filled in dataset with the filled-in missing values for this part.**  
+**1. Create a new factor variable in the dataset with two levels - "weekday" and "weekend" indicating**
+**whether a given date is a weekday or a weekend day**
 
-**For this part the weekdays() function may be of some help here. Use the dataset with the filled-in missing values for this part. 
-
-** 1. Create a new factor variable in the dataset with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.**  
 
 ```{r}
 ##Are there differences in activity patterns between weekdays and weekends? 
@@ -177,9 +184,11 @@ calcWeekend <- function(date) {
 
 stepsDFclean$isWeekend <- as.factor(sapply(stepsDFclean$date, calcWeekend))
 
-```
-    
-** 2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data. **   
+```  
+
+**2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken,**
+**averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this**
+**plot should look like using simulated data**
 
 
 ```{r}
